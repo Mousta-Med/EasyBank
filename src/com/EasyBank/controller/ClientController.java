@@ -52,8 +52,10 @@ public class ClientController {
         String code = scanner.next();
         Optional<Client> optional = clientDao.chercherClient(code);
         if (optional.isPresent()){
+
             System.out.println(optional.get());
         }else
+            
             System.out.println("NULL");
     }
 }
