@@ -1,4 +1,5 @@
 import com.EasyBank.controller.ClientController;
+import com.EasyBank.controller.CompteCourantController;
 import com.EasyBank.controller.EmployeController;
 
 import java.util.Scanner;
@@ -7,19 +8,20 @@ public class Main {
     public static void main(String[] args) {
         EmployeController employeController = new EmployeController();
         ClientController clientController = new ClientController();
+
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(
                     """
-                            ++++++++++++++++++++ Bibliotheque +++++++++++++++++++++
+                            ++++++++++++++++++++   EasyBank   +++++++++++++++++++++
                             + 1.Ajouter Un Employe                                +
                             + 2.Supprimer Un Employe                              +
                             + 3.Afficher Employe par matricule                    +
                             + 4.Ajouter Un Client                                 +
-                            + 6.Supprimer Un client                               +
-                            + 7.Aficher Un Client par code                        +
-                            + 8.Supprimer Un Member                               +
-                            + 9.Emprunter Un Livre                                +
+                            + 5.Supprimer Un client                               +
+                            + 6.Aficher Un Client par code                        +
+                            + 7.Ajouter Un Compte                               +
+                            + 8.Emprunter Un Livre                                +
                             + 10.Afficher Les Members                             +
                             + 11.Afficher Les Livres Emprunter                    +
                             + 12.Retourner Un Livre Emprunter                     +
@@ -49,6 +51,7 @@ public class Main {
                     clientController.chercherClient();
                     break;
                 case "7":
+                    CompteCourantController.ajouterCompte();
                     break;
                 case "8":
                     break;

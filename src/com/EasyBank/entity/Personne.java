@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Personne {
-    private String nom;
-    private String prenom;
-    private LocalDate dateNaissance;
-    private String telephone;
+    protected String nom;
+    protected String prenom;
+    protected LocalDate dateNaissance;
+    protected String telephone;
 
     public Personne(String nom, String prenom, LocalDate dateNaissance, String telephone) {
         this.nom = nom;
