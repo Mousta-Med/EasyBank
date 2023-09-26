@@ -1,16 +1,15 @@
 package com.EasyBank.controller;
 
 import com.EasyBank.dao.EmployeDao;
-import com.EasyBank.daoImpl.EmployéDaoImpl;
+import com.EasyBank.daoImpl.EmployeDaoImpl;
 import com.EasyBank.entity.Employe;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class EmployeController {
-    EmployeDao employeDao = new EmployéDaoImpl();
+    EmployeDao employeDao = new EmployeDaoImpl();
     Employe employe = new Employe();
     Scanner scanner = new Scanner(System.in);
     public void ajouterEmploye(){

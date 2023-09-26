@@ -1,25 +1,25 @@
 package com.EasyBank.controller;
 
 import com.EasyBank.dao.ClientDao;
-import com.EasyBank.dao.CompteCourantDao;
+import com.EasyBank.dao.CompteEpargneDao;
 import com.EasyBank.dao.EmployeDao;
 import com.EasyBank.daoImpl.ClientDaoImpl;
-import com.EasyBank.daoImpl.CompteCourantDaoImpl;
+import com.EasyBank.daoImpl.CompteEpargneDaoImpl;
 import com.EasyBank.daoImpl.EmployeDaoImpl;
 import com.EasyBank.entity.Client;
-import com.EasyBank.entity.CompteCourant;
+import com.EasyBank.entity.CompteEpargne;
 import com.EasyBank.entity.Employe;
 
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class CompteCourantController {
-    static CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
+public class CompteEpargneController {
+    static CompteEpargneDao compteEpargneDao = new CompteEpargneDaoImpl();
     static ClientDao clientDao = new ClientDaoImpl();
     static EmployeDao employeDao = new EmployeDaoImpl();
     static Scanner scanner = new Scanner(System.in);
-    static CompteCourant compteCourant = new CompteCourant();
+    static CompteEpargne compteEpargne = new CompteEpargne();
 
     public static void ajouterCompte() {
         LocalDate creationDate = LocalDate.now();
@@ -27,23 +27,23 @@ public class CompteCourantController {
         String numero = scanner.next();
         System.out.println("Entrer Solde de compte");
         Double solde = scanner.nextDouble();
-        System.out.println("Entrer decouvert de compte");
-        Double decouvert = scanner.nextDouble();
+        System.out.println("Entrer tauxInteret de compte");
+        Double tauxInteret = scanner.nextDouble();
         System.out.println("Entrer code de client");
         String code = scanner.next();
         System.out.println("Entrer matricule de employe");
         String matricule = scanner.next();
         Optional<Client> optionalClient = clientDao.chercherClient(code);
         Optional<Employe> employeOptional = employeDao.chercherEmploye(matricule);
-        compteCourant.setDecouvert(decouvert);
-        compteCourant.setNemuro(numero);
-        compteCourant.setDateCreation(creationDate);
-        compteCourant.setSold(solde);
-        compteCourant.setClient(optionalClient.get());
-        compteCourant.setEmployé(employeOptional.get());
-        Optional<CompteCourant> compteCourantOptional = compteCourantDao.creeCompte(compteCourant);
-        if (compteCourantOptional.isPresent()) {
-            System.out.println("compteCourant a ajouter ");
+        compteEpargne.setTauxInteret(tauxInteret);
+        compteEpargne.setNemuro(numero);
+        compteEpargne.setDateCreation(creationDate);
+        compteEpargne.setSold(solde);
+        compteEpargne.setClient(optionalClient.get());
+        compteEpargne.setEmployé(employeOptional.get());
+        Optional<CompteEpargne> compteEpargneOptional = compteEpargneDao.creeCompte(compteEpargne);
+        if (compteEpargneOptional.isPresent()) {
+            System.out.println("compteEpargne a ajouter ");
         } else
             System.out.println("NULL");
     }
@@ -51,9 +51,9 @@ public class CompteCourantController {
     public static void chercherCompte(){
         System.out.println("Entrer Code client");
         String code = scanner.next();
-        Optional<CompteCourant> optionalCompteCourant = compteCourantDao.chercheCompte(code);
-        if (optionalCompteCourant.isPresent()){
-            System.out.println(optionalCompteCourant.get());;
+        Optional<CompteEpargne> compteEpargneOptional = compteEpargneDao.chercheCompte(code);
+        if (compteEpargneOptional.isPresent()){
+            System.out.println(compteEpargneOptional.get());;
         }else
             System.out.println("NULL");
     }
@@ -68,7 +68,7 @@ public class CompteCourantController {
         Optional<Client> optionalClient = clientDao.chercherClient(code);
         Optional<Employe> employeOptional = employeDao.chercherEmploye(matricule);
         if (optionalClient.isPresent() && employeOptional.isPresent()) {
-                Integer res = compteCourantDao.supprimerCompte(numero);
+            Integer res = compteEpargneDao.supprimerCompte(numero);
             if (res != 0) {
                 System.out.println("Compte supprimer");
             }else

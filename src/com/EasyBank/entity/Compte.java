@@ -12,10 +12,10 @@ public class Compte {
     private Client client;
     private Employe employé;
     public enum statut {
-        BLOQUÉ,
-        ACTIF,
-        SUSPENDU,
-        FRAUDULEUX
+        Bloqué,
+        Actif,
+        Suspendu,
+        Frauduleux
     }
 
     public Compte(String nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé) {
