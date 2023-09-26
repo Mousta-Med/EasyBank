@@ -15,16 +15,16 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class CompteCourantController {
-    static  CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
-    static  ClientDao clientDao = new ClientDaoImpl();
-    static  EmployeDao employeDao = new EmployéDaoImpl();
+    static CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
+    static ClientDao clientDao = new ClientDaoImpl();
+    static EmployeDao employeDao = new EmployéDaoImpl();
     static Scanner scanner = new Scanner(System.in);
     static CompteCourant compteCourant = new CompteCourant();
 
-    public static void ajouterCompte(){
+    public static void ajouterCompte() {
         LocalDate creationDate = LocalDate.now();
         System.out.println("Entrer numero de Compte");
-        Integer numero = scanner.nextInt();
+        String numero = scanner.next();
         System.out.println("Entrer Solde de compte");
         Double solde = scanner.nextDouble();
         System.out.println("Entrer decouvert de compte");
@@ -42,9 +42,27 @@ public class CompteCourantController {
         compteCourant.setClient(optionalClient.get());
         compteCourant.setEmployé(employeOptional.get());
         Optional<CompteCourant> compteCourantOptional = compteCourantDao.creeCompte(compteCourant);
-        if (compteCourantOptional.isPresent()){
+        if (compteCourantOptional.isPresent()) {
             System.out.println("compteCourant a ajouter ");
-        }else
+        } else
             System.out.println("NULL");
+    }
+
+    public static void supprimerCompte() {
+        System.out.println("Entrer Code client");
+        String code = scanner.next();
+        System.out.println("Entrer matricule de employe");
+        String matricule = scanner.next();
+        System.out.println("Entrer numero de compte");
+        String numero = scanner.next();
+        Optional<Client> optionalClient = clientDao.chercherClient(code);
+        Optional<Employe> employeOptional = employeDao.chercherEmploye(matricule);
+        if (optionalClient.isPresent() && employeOptional.isPresent()) {
+                Integer res = compteCourantDao.supprimerCompte(numero);
+            if (res != 0) {
+                System.out.println("Compte supprimer");
+            }else
+                System.out.println("null");
+        }
     }
 }

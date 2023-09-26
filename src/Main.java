@@ -54,6 +54,7 @@ public class Main {
                     CompteCourantController.ajouterCompte();
                     break;
                 case "8":
+                    CompteCourantController.supprimerCompte();
                     break;
                 case "9":
                     break;

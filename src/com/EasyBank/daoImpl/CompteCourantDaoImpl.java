@@ -14,11 +14,10 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
         String query = "INSERT INTO compteCourant(nemuro, dateCreation, sold, decouvert, client, employe) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, compteCourant.getNemuro());
+            preparedStatement.setString(1, compteCourant.getNemuro());
             preparedStatement.setDate(2, Date.valueOf(compteCourant.getDateCreation()));
             preparedStatement.setDouble(3, compteCourant.getSold());
             preparedStatement.setDouble(4, compteCourant.getDecouvert());
-//            preparedStatement.setObject(5, compteCourant.getEtat(), Types.OTHER);
             preparedStatement.setString(5, compteCourant.getClient().getCode());
             preparedStatement.setString(6, compteCourant.getEmployé().getMatricul());
             Integer result = preparedStatement.executeUpdate();
@@ -33,11 +32,23 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
 
     @Override
     public Optional<CompteCourant> chercheCompte(String code) {
+
         return Optional.empty();
     }
 
     @Override
     public Integer supprimerCompte(String numero) {
+        String query = "DELETE FROM compteCourant WHERE numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, numero);
+            Integer result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return result;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 }

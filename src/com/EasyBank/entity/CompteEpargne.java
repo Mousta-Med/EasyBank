@@ -6,7 +6,7 @@ import java.util.Objects;
 public class CompteEpargne extends Compte{
     private double tauxInteret;
 
-    public CompteEpargne(Integer nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé, double tauxInteret) {
+    public CompteEpargne(String nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé, double tauxInteret) {
         super(nemuro, sold, dateCreation, etat, client, employé);
         this.tauxInteret = tauxInteret;
     }
