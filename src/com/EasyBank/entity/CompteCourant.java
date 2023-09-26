@@ -8,7 +8,7 @@ public class CompteCourant extends Compte{
 
     public CompteCourant() {
     }
-    public CompteCourant(Integer nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé, Double decouvert) {
+    public CompteCourant(String nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé, Double decouvert) {
         super(nemuro, sold, dateCreation, etat, client, employé);
         this.decouvert = decouvert;
     }

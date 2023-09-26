@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class Compte {
 
-    private Integer nemuro;
+    private String nemuro;
     private Double sold;
     private LocalDate dateCreation;
     private statut etat;
     private Client client;
     private Employe employé;
     public enum statut {
-        BLOQUÉ,
-        ACTIF,
-        SUSPENDU,
-        FRAUDULEUX
+        Bloqué,
+        Actif,
+        Suspendu,
+        Frauduleux
     }
 
-    public Compte(Integer nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé) {
+    public Compte(String nemuro, Double sold, LocalDate dateCreation, statut etat, Client client, Employe employé) {
         this.nemuro = nemuro;
         this.sold = sold;
         this.dateCreation = dateCreation;
@@ -30,11 +30,11 @@ public class Compte {
     public Compte() {
     }
 
-    public Integer getNemuro() {
+    public String getNemuro() {
         return nemuro;
     }
 
-    public void setNemuro(Integer nemuro) {
+    public void setNemuro(String nemuro) {
         this.nemuro = nemuro;
     }
 

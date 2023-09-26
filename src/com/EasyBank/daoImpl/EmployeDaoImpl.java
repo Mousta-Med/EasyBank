@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
 
-public class EmployéDaoImpl implements EmployeDao {
+public class EmployeDaoImpl implements EmployeDao {
     Connection connection = DbConnection.createConnection();
     Employe employe = new Employe();
 

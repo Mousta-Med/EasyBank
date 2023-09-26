@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS personne;
 CREATE TABLE personne
 (
     id            SERIAL PRIMARY KEY,
@@ -6,6 +7,7 @@ CREATE TABLE personne
     dateNaissance date,
     telephone     varchar(255)
 );
+DROP TABLE IF EXISTS client;
 CREATE TABLE client
 (
     code     varchar(255) not null unique,
@@ -13,6 +15,7 @@ CREATE TABLE client
     personne int,
     FOREIGN KEY (personne) REFERENCES personne (id) ON DELETE CASCADE
 );
+DROP TABLE IF EXISTS employe;
 CREATE TABLE employe
 (
     matricule       varchar(255) not null unique,
@@ -27,9 +30,10 @@ CREATE TYPE public.etat AS ENUM (
     'Suspendu',
     'Frauduleux'
     );
+DROP TABLE IF EXISTS compteCourant;
 CREATE TABLE compteCourant
 (
-    nemuro       int          not null unique,
+    numero       int          not null unique,
     dateCreation date,
     sold         real,
     decouvert    real,
@@ -39,12 +43,13 @@ CREATE TABLE compteCourant
     FOREIGN KEY (client) REFERENCES client (code) ON DELETE CASCADE,
     FOREIGN KEY (employe) REFERENCES employe (matricule) ON DELETE CASCADE
 );
+DROP TABLE IF EXISTS compteEpargne;
 CREATE TABLE compteEpargne
 (
-    nemuro       int          not null unique,
+    numero       int          not null unique,
     dateCreation date,
     sold         real,
-    decouvert    real,
+    tauxInteret    real,
     etat         etat DEFAULT 'Actif',
     client       varchar(255) not null,
     employe      varchar(255) not null,

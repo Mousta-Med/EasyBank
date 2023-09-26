@@ -1,5 +1,6 @@
 import com.EasyBank.controller.ClientController;
 import com.EasyBank.controller.CompteCourantController;
+import com.EasyBank.controller.CompteEpargneController;
 import com.EasyBank.controller.EmployeController;
 
 import java.util.Scanner;
@@ -20,9 +21,12 @@ public class Main {
                             + 4.Ajouter Un Client                                 +
                             + 5.Supprimer Un client                               +
                             + 6.Aficher Un Client par code                        +
-                            + 7.Ajouter Un Compte                               +
-                            + 8.Emprunter Un Livre                                +
-                            + 10.Afficher Les Members                             +
+                            + 7.Ajouter Un CompteCourant                          +
+                            + 8.Supprimer Un compteCourant                        +
+                            + 9.Afficher Un compteCourant par client             +
+                            + 10.Ajouter Un compteEpargne                          +
+                            + 11.Supprimer Un compteEpargne                        +
+                            + 12.Afficher Un compteEpargne par client
                             + 11.Afficher Les Livres Emprunter                    +
                             + 12.Retourner Un Livre Emprunter                     +
                             + 13.Aficher Statistique                              +
@@ -54,14 +58,19 @@ public class Main {
                     CompteCourantController.ajouterCompte();
                     break;
                 case "8":
+                    CompteCourantController.supprimerCompte();
                     break;
                 case "9":
+                    CompteCourantController.chercherCompte();
                     break;
                 case "10":
+                    CompteEpargneController.ajouterCompte();
                     break;
                 case "11":
+                    CompteEpargneController.supprimerCompte();
                     break;
                 case "12":
+                    CompteEpargneController.chercherCompte();
                     break;
                 case "13":
                     break;
