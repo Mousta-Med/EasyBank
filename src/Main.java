@@ -1,7 +1,4 @@
-import com.EasyBank.controller.ClientController;
-import com.EasyBank.controller.CompteCourantController;
-import com.EasyBank.controller.CompteEpargneController;
-import com.EasyBank.controller.EmployeController;
+import com.EasyBank.controller.*;
 
 import java.util.Scanner;
 
@@ -73,6 +70,7 @@ public class Main {
                     CompteEpargneController.chercherCompte();
                     break;
                 case "13":
+                    OperationController.ajouterOperation();
                     break;
                 case "14":
                     break;
