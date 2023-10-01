@@ -73,6 +73,7 @@ public class Main {
                     OperationController.ajouterOperation();
                     break;
                 case "14":
+                    OperationController.supprimerOperation();
                     break;
                 case "0":
                     System.out.println("Merci...");

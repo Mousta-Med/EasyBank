@@ -60,4 +60,13 @@ public class OperationController {
             System.out.println("NULL");
         }
     }
+    public static void supprimerOperation(){
+        System.out.println("Entrer le numero de operation");
+        String numero = scanner.next();
+        Integer res = operationDao.supprimerOperation(Integer.valueOf(numero));
+        if (res == null){
+            System.out.println("NULL");
+        }else
+            System.out.println("Operation bien supprimer");
+    }
 }

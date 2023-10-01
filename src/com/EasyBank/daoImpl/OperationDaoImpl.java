@@ -4,10 +4,7 @@ import com.EasyBank.dao.OperationDao;
 import com.EasyBank.entity.Operation;
 import com.EasyBank.util.DbConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.Types;
+import java.sql.*;
 import java.util.Optional;
 
 public class OperationDaoImpl implements OperationDao {
@@ -34,7 +31,18 @@ public class OperationDaoImpl implements OperationDao {
     }
 
     @Override
-    public Integer supprimerOperation(Integer integer) {
+    public Integer supprimerOperation(Integer numero) {
+        String query = "DELETE FROM operation WHERE numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, numero);
+            Integer result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return result;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
