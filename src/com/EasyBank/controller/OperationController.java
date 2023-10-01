@@ -69,4 +69,13 @@ public class OperationController {
         }else
             System.out.println("Operation bien supprimer");
     }
+    public static void chercherOperation(){
+        System.out.println("Entrer numero de Operation");
+        String code = scanner.next();
+        Optional<Operation> optionalOperation = operationDao.chercherOperation(Integer.valueOf(code));
+        if (optionalOperation.isPresent()){
+            System.out.println(optionalOperation.get());;
+        }else
+            System.out.println("NULL");
+    }
 }
