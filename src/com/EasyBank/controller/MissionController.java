@@ -30,4 +30,15 @@ public class MissionController {
             System.out.println("NULL");
         }
     }
+    public static void supprimerMission(){
+        System.out.println("Entrer le code demission");
+        String code = scanner.next();
+        Integer integer = missionDao.supprimerMision(code);
+        if (integer != 0){
+            System.out.println("Bien supprimer");
+        }else {
+            System.out.println("NULL");
+        }
+
+    }
 }

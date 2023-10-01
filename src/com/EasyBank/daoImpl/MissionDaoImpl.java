@@ -33,6 +33,17 @@ public class MissionDaoImpl implements MissionDao {
 
     @Override
     public Integer supprimerMision(String code) {
+        String query = "DELETE FROM Mission WHERE code = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1,code);
+            int result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
