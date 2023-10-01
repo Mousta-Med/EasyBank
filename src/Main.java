@@ -24,6 +24,10 @@ public class Main {
                             + 10.Ajouter Un compteEpargne                          +
                             + 11.Supprimer Un compteEpargne                        +
                             + 12.Afficher Un compteEpargne par client
+                            + 13.ajouter operation                                +
+                            + 14.supprimer operation                              +
+                            + 15.chercher operation                               +
+                            + 14.Exporter Statistique                             +
                             + 13.ajouter operation                +
                             + 14.supprimer operation                    +
                             + 15.chercher operation                              +

@@ -60,22 +60,24 @@ public class OperationController {
             System.out.println("NULL");
         }
     }
-    public static void supprimerOperation(){
+
+    public static void supprimerOperation() {
         System.out.println("Entrer le numero de operation");
         String numero = scanner.next();
         Integer res = operationDao.supprimerOperation(Integer.valueOf(numero));
-        if (res == null){
+        if (res == null) {
             System.out.println("NULL");
-        }else
+        } else
             System.out.println("Operation bien supprimer");
     }
-    public static void chercherOperation(){
+
+    public static void chercherOperation() {
         System.out.println("Entrer numero de Operation");
         String code = scanner.next();
         Optional<Operation> optionalOperation = operationDao.chercherOperation(Integer.valueOf(code));
-        if (optionalOperation.isPresent()){
-            System.out.println(optionalOperation.get());;
-        }else
+        if (optionalOperation.isPresent()) {
+            System.out.println(optionalOperation.get());
+        } else
             System.out.println("NULL");
     }
 }
