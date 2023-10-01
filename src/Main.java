@@ -81,6 +81,9 @@ public class Main {
                 case "16":
                     MissionController.ajouterMission();
                     break;
+                case "17":
+                    MissionController.supprimerMission();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);
