@@ -20,13 +20,13 @@ public class Main {
                             + 6.Aficher Un Client par code                        +
                             + 7.Ajouter Un CompteCourant                          +
                             + 8.Supprimer Un compteCourant                        +
-                            + 9.Afficher Un compteCourant par client             +
-                            + 10.Ajouter Un compteEpargne                          +
-                            + 11.Supprimer Un compteEpargne                        +
-                            + 12.Afficher Un compteEpargne par client
-                            + 13.ajouter operation                +
-                            + 14.supprimer operation                    +
-                            + 15.chercher operation                              +
+                            + 9.Afficher Un compteCourant par client              +
+                            + 10.Ajouter Un compteEpargne                         +
+                            + 11.Supprimer Un compteEpargne                       +
+                            + 12.Afficher Un compteEpargne par client             +
+                            + 13.ajouter operation                                +
+                            + 14.supprimer operation                              +
+                            + 15.chercher operation                               +
                             + 14.Exporter Statistique                             +
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
