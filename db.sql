@@ -95,3 +95,10 @@ create trigger update_compteCourant_sold
     on operation
     for each row
 execute function operation();
+DROP TABLE IF EXISTS Mission;
+CREATE TABLE Mission
+(
+    code        varchar(255) NOT NULL UNIQUE,
+    nom         varchar(255),
+    description varchar(255)
+);
