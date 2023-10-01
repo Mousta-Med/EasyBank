@@ -24,17 +24,17 @@ public class Main {
                             + 10.Ajouter Un compteEpargne                          +
                             + 11.Supprimer Un compteEpargne                        +
                             + 12.Afficher Un compteEpargne par client
-<<<<<<< HEAD
-                            + 13.ajouter operation                                +
-                            + 14.supprimer operation                              +
-                            + 15.chercher operation                               +
-                            + 14.Exporter Statistique                             +
-=======
+<<<<<<<<< Temporary merge branch 1
                             + 13.ajouter operation                +
                             + 14.supprimer operation                    +
                             + 15.chercher operation                              +
                             + 16.Ajouter Mission                             +
->>>>>>> origin/main
+=========
+                            + 13.ajouter operation                                +
+                            + 14.supprimer operation                              +
+                            + 15.chercher operation                               +
+                            + 14.Exporter Statistique                             +
+>>>>>>>>> Temporary merge branch 2
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             Entrer Votre Choix:\s""");
