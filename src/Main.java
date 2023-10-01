@@ -24,10 +24,17 @@ public class Main {
                             + 10.Ajouter Un compteEpargne                          +
                             + 11.Supprimer Un compteEpargne                        +
                             + 12.Afficher Un compteEpargne par client
+<<<<<<< HEAD
                             + 13.ajouter operation                                +
                             + 14.supprimer operation                              +
                             + 15.chercher operation                               +
                             + 14.Exporter Statistique                             +
+=======
+                            + 13.ajouter operation                +
+                            + 14.supprimer operation                    +
+                            + 15.chercher operation                              +
+                            + 16.Ajouter Mission                             +
+>>>>>>> origin/main
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             Entrer Votre Choix:\s""");
@@ -79,6 +86,10 @@ public class Main {
                     OperationController.chercherOperation();
                     break;
                 case "16":
+                    MissionController.ajouterMission();
+                    break;
+                case "17":
+                    MissionController.supprimerMission();
                     break;
                 case "0":
                     System.out.println("Merci...");

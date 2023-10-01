@@ -3,22 +3,22 @@ package com.EasyBank.entity;
 import java.util.Objects;
 
 public class Mission {
-    private Integer code;
+    private String code;
     private String nom;
     private String description;
     public Mission() {
     }
-    public Mission(Integer code, String nom, String description) {
+    public Mission(String code, String nom, String description) {
         this.code = code;
         this.nom = nom;
         this.description = description;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
