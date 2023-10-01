@@ -27,7 +27,7 @@ public class Main {
                             + 13.ajouter operation                +
                             + 14.supprimer operation                    +
                             + 15.chercher operation                              +
-                            + 14.Exporter Statistique                             +
+                            + 16.Ajouter Mission                             +
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             Entrer Votre Choix:\s""");
@@ -79,6 +79,7 @@ public class Main {
                     OperationController.chercherOperation();
                     break;
                 case "16":
+                    MissionController.ajouterMission();
                     break;
                 case "0":
                     System.out.println("Merci...");
