@@ -1,7 +1,4 @@
-import com.EasyBank.controller.ClientController;
-import com.EasyBank.controller.CompteCourantController;
-import com.EasyBank.controller.CompteEpargneController;
-import com.EasyBank.controller.EmployeController;
+import com.EasyBank.controller.*;
 
 import java.util.Scanner;
 
@@ -27,9 +24,9 @@ public class Main {
                             + 10.Ajouter Un compteEpargne                          +
                             + 11.Supprimer Un compteEpargne                        +
                             + 12.Afficher Un compteEpargne par client
-                            + 11.Afficher Les Livres Emprunter                    +
-                            + 12.Retourner Un Livre Emprunter                     +
-                            + 13.Aficher Statistique                              +
+                            + 13.ajouter operation                +
+                            + 14.supprimer operation                    +
+                            + 15.chercher operation                              +
                             + 14.Exporter Statistique                             +
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -73,8 +70,15 @@ public class Main {
                     CompteEpargneController.chercherCompte();
                     break;
                 case "13":
+                    OperationController.ajouterOperation();
                     break;
                 case "14":
+                    OperationController.supprimerOperation();
+                    break;
+                case "15":
+                    OperationController.chercherOperation();
+                    break;
+                case "16":
                     break;
                 case "0":
                     System.out.println("Merci...");

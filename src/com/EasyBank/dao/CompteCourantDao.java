@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface CompteCourantDao {
     Optional<CompteCourant> creeCompte(CompteCourant compteCourant);
     Optional<CompteCourant> chercheCompte(String code);
+    Optional<CompteCourant> chercheCompteParNum(String code);
     Integer supprimerCompte(String numero);
 
 }

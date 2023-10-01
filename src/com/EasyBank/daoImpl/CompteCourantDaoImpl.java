@@ -57,6 +57,27 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
             e.printStackTrace();
         }
         return Optional.empty();
+    }@Override
+    public Optional<CompteCourant> chercheCompteParNum(String code) {
+        String query = "SELECT * FROM compteCourant WHERE numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, code);
+            ResultSet result = preparedStatement.executeQuery();
+            if (result.next()) {
+                compteCourant.setSold(result.getDouble("sold"));
+                compteCourant.setEmployé(employeDao.chercherEmploye(result.getString( "employe")).get());
+                compteCourant.setDecouvert(result.getDouble("decouvert"));
+                compteCourant.setClient(clientDao.chercherClient(result.getString("client")).get());
+                compteCourant.setEtat(Compte.statut.valueOf(result.getString("etat")));
+                compteCourant.setNemuro(result.getString("numero"));
+                compteCourant.setDateCreation(result.getDate("datecreation").toLocalDate());
+                return Optional.of(compteCourant);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 
     @Override

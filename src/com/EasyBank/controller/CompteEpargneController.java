@@ -73,6 +73,8 @@ public class CompteEpargneController {
                 System.out.println("Compte supprimer");
             }else
                 System.out.println("null");
+        }else{
+            System.out.println("client or employe pas trouvé ");
         }
     }
 }
