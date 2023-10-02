@@ -5,6 +5,7 @@ import com.EasyBank.daoImpl.EmployeDaoImpl;
 import com.EasyBank.entity.Employe;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -57,5 +58,12 @@ public class EmployeController {
             System.out.println("NULL");
         }else
             System.out.println("Employe bien supprimer");
+    }
+    public void afficherEmlpoyes(){
+        Optional<ArrayList<Employe>> optional = employeDao.afficherEmployes();
+        if (optional.isPresent()){
+            System.out.println(optional.get());
+        }else
+            System.out.println("NULL");
     }
 }

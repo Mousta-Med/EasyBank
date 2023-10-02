@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class EmployeDaoImpl implements EmployeDao {
@@ -86,6 +87,33 @@ public class EmployeDaoImpl implements EmployeDao {
                 employe.setEmail(result.getString("email"));
                 employe.setDateRecrutement(result.getDate("daterecrutement").toLocalDate());
                 return Optional.of(employe);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArrayList<Employe>> afficherEmployes() {
+        String query = "SELECT * FROM employe";
+        ArrayList<Employe> employes = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet result = preparedStatement.executeQuery();
+            String stmt = "SELECT * FROM personne";
+            PreparedStatement statment = connection.prepareStatement(stmt);
+            ResultSet resultSet = statment.executeQuery();
+            while (resultSet.next() && result.next()) {
+                employe.setMatricul(result.getString("matricule"));
+                employe.setNom(resultSet.getString("nom"));
+                employe.setPrenom(resultSet.getString("prenome"));
+                employe.setDateNaissance(resultSet.getDate("datenaissance").toLocalDate());
+                employe.setTelephone(resultSet.getString("telephone"));
+                employe.setEmail(result.getString("email"));
+                employe.setDateRecrutement(result.getDate("daterecrutement").toLocalDate());
+                employes.add(employe);
+                return Optional.of(employes);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -32,6 +32,8 @@ public class Main {
                             + 14.supprimer operation                    +
                             + 15.chercher operation                              +
                             + 16.Ajouter Mission                             +
+                            + 17.supprimer Mission                                +
+                            + 18.Afficher tout operations                         +
                             + 0.Sortir                                            +
                             +++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             Entrer Votre Choix:\s""");
@@ -90,6 +92,9 @@ public class Main {
                     break;
                 case "18":
                     OperationController.afficherOperations();
+                    break;
+                case "19":
+                    employeController.afficherEmlpoyes();
                     break;
                 case "0":
                     System.out.println("Merci...");
