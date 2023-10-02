@@ -10,6 +10,7 @@ import com.EasyBank.entity.CompteCourant;
 import com.EasyBank.entity.Operation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -75,6 +76,13 @@ public class OperationController {
         System.out.println("Entrer numero de Operation");
         String code = scanner.next();
         Optional<Operation> optionalOperation = operationDao.chercherOperation(Integer.valueOf(code));
+        if (optionalOperation.isPresent()) {
+            System.out.println(optionalOperation.get());
+        } else
+            System.out.println("NULL");
+    }
+    public static void afficherOperations(){
+        Optional<ArrayList<Operation>> optionalOperation = operationDao.afficherOperations();
         if (optionalOperation.isPresent()) {
             System.out.println(optionalOperation.get());
         } else

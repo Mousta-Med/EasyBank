@@ -8,6 +8,8 @@ import com.EasyBank.entity.Operation;
 import com.EasyBank.util.DbConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class OperationDaoImpl implements OperationDao {
@@ -68,6 +70,29 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setCompte(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
                 return Optional.of(operation);
             }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArrayList<Operation>> afficherOperations() {
+        String query = "SELECT * FROM operation";
+        ArrayList<Operation> operations = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet result = preparedStatement.executeQuery();
+            while (result.next()) {
+                operation.setNumero(result.getInt("numero"));
+                operation.setMontant(result.getDouble("montant"));
+                operation.setType(Operation.Type.valueOf(result.getObject("type").toString()));
+                operation.setDateCreation(result.getDate("dateOperation").toLocalDate());
+                operation.setEmployé(employeDao.chercherEmploye(result.getString("employe")).get());
+                operation.setCompte(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
+                operations.add(operation);
+            }
+            return Optional.of(operations);
         }catch (SQLException e){
             e.printStackTrace();
         }
