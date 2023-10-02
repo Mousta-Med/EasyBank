@@ -25,7 +25,7 @@ public class EmployeDaoImpl implements EmployeDao {
             preparedStatement.setDate(3, Date.valueOf(employe.getDateNaissance()));
             preparedStatement.setString(4, employe.getTelephone());
             ResultSet result = preparedStatement.executeQuery();
-            Integer personneId = 0;
+            int personneId = 0;
             if (result.next()) {
                 personneId = result.getInt(1);
             }
@@ -86,6 +86,37 @@ public class EmployeDaoImpl implements EmployeDao {
                 employe.setTelephone(resultSet.getString("telephone"));
                 employe.setEmail(result.getString("email"));
                 employe.setDateRecrutement(result.getDate("daterecrutement").toLocalDate());
+                return Optional.of(employe);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Employe> chercherEmployeParAttribut(String string) {
+        String query = "SELECT * FROM personne WHERE nom LIKE ? ";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, string);
+            ResultSet result = preparedStatement.executeQuery();
+            Integer personneId = 0;
+            if (result.next()) {
+                personneId = result.getInt("id");
+            }
+            String stmt = "SELECT * FROM employe WHERE personneId = ?";
+            PreparedStatement statment = connection.prepareStatement(stmt);
+            statment.setInt(1, personneId);
+            ResultSet resultSet = statment.executeQuery();
+            if (resultSet.next()) {
+                employe.setMatricul(resultSet.getString("matricule"));
+                employe.setNom(result.getString("nom"));
+                employe.setPrenom(result.getString("prenome"));
+                employe.setDateNaissance(result.getDate("datenaissance").toLocalDate());
+                employe.setTelephone(result.getString("telephone"));
+                employe.setEmail(resultSet.getString("email"));
+                employe.setDateRecrutement(resultSet.getDate("daterecrutement").toLocalDate());
                 return Optional.of(employe);
             }
         } catch (Exception e) {

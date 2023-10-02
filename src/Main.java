@@ -96,6 +96,9 @@ public class Main {
                 case "19":
                     employeController.afficherEmlpoyes();
                     break;
+                case "20":
+                    employeController.recherchEmployeParAttribut();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);

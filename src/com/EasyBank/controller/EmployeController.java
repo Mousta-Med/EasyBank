@@ -49,6 +49,15 @@ public class EmployeController {
         }else
             System.out.println("NULL");
     }
+    public void recherchEmployeParAttribut(){
+        System.out.println("Entre nom de l'employe");
+        String string = scanner.next();
+        Optional<Employe> optional = employeDao.chercherEmployeParAttribut(string);
+        if (optional.isPresent()){
+            System.out.println(optional.get());
+        }else
+            System.out.println("NULL");
+    }
 
     public void deleteEmploye(){
         System.out.println("Entrer le matricule de employe");
