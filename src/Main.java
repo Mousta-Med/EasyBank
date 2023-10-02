@@ -102,6 +102,9 @@ public class Main {
                 case "21":
                     clientController.afficherClients();
                     break;
+                case "22":
+                    clientController.chercherClientParAttribute();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);

@@ -9,5 +9,6 @@ public interface ClientDao {
     Optional<Client> ajouterClient(Client client);
     Integer supprimerClient(String code);
     Optional<Client> chercherClient(String code);
+    Optional<Client> chercherClientParAttribute(String string);
     Optional<ArrayList<Client>> afficherClients();
 }

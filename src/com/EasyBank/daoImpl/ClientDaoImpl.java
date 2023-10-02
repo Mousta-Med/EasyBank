@@ -93,6 +93,36 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public Optional<Client> chercherClientParAttribute(String string) {
+        String query = "SELECT * FROM personne WHERE nom LIKE ? ";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, string);
+            ResultSet result = preparedStatement.executeQuery();
+            Integer personneId = 0;
+            if (result.next()) {
+                personneId = result.getInt("id");
+            }
+            String stmt = "SELECT * FROM client WHERE personne = ?";
+            PreparedStatement statment = connection.prepareStatement(stmt);
+            statment.setInt(1, personneId);
+            ResultSet resultSet = statment.executeQuery();
+            if (resultSet.next()) {
+                client.setCode(resultSet.getString("code"));
+                client.setNom(result.getString("nom"));
+                client.setPrenom(result.getString("prenome"));
+                client.setDateNaissance(result.getDate("datenaissance").toLocalDate());
+                client.setTelephone(result.getString("telephone"));
+                client.setAdresse(resultSet.getString("adresse"));
+                return Optional.of(client);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<ArrayList<Client>> afficherClients() {
         String query = "SELECT * FROM personne INNER JOIN client ON personne.id = client.personne";
         ArrayList<Client> clients = new ArrayList<>();

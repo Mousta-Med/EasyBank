@@ -59,6 +59,14 @@ public class ClientController {
             System.out.println(optional.get());
         } else
             System.out.println("NULL");
+    }public void chercherClientParAttribute() {
+        System.out.println("Entre nom de client");
+        String code = scanner.next();
+        Optional<Client> optional = clientDao.chercherClientParAttribute(code);
+        if (optional.isPresent()) {
+            System.out.println(optional.get());
+        } else
+            System.out.println("NULL");
     }
     public void afficherClients() {
         Optional<ArrayList<Client>> optional = clientDao.afficherClients();
