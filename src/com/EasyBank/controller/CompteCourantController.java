@@ -6,13 +6,11 @@ import com.EasyBank.dao.EmployeDao;
 import com.EasyBank.daoImpl.ClientDaoImpl;
 import com.EasyBank.daoImpl.CompteCourantDaoImpl;
 import com.EasyBank.daoImpl.EmployeDaoImpl;
-import com.EasyBank.entity.Client;
-import com.EasyBank.entity.CompteCourant;
-import com.EasyBank.entity.Employe;
+import com.EasyBank.entity.*;
 
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CompteCourantController {
     static CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
@@ -48,13 +46,13 @@ public class CompteCourantController {
             System.out.println("NULL");
     }
 
-    public static void chercherCompte(){
+    public static void chercherCompte() {
         System.out.println("Entrer Code client");
         String code = scanner.next();
         Optional<CompteCourant> optionalCompteCourant = compteCourantDao.chercheCompte(code);
-        if (optionalCompteCourant.isPresent()){
-            System.out.println(optionalCompteCourant.get());;
-        }else
+        if (optionalCompteCourant.isPresent()) {
+            System.out.println(optionalCompteCourant.get());
+        } else
             System.out.println("NULL");
     }
 
@@ -68,11 +66,120 @@ public class CompteCourantController {
         Optional<Client> optionalClient = clientDao.chercherClient(code);
         Optional<Employe> employeOptional = employeDao.chercherEmploye(matricule);
         if (optionalClient.isPresent() && employeOptional.isPresent()) {
-                Integer res = compteCourantDao.supprimerCompte(numero);
+            Integer res = compteCourantDao.supprimerCompte(numero);
             if (res != 0) {
                 System.out.println("Compte supprimer");
-            }else
+            } else
                 System.out.println("null");
+        }
+    }
+
+    public static void afficherComptes() {
+        Optional<ArrayList<CompteCourant>> optionalCompteCourant = compteCourantDao.afficherComptes();
+        if (optionalCompteCourant.isPresent()) {
+            System.out.println(optionalCompteCourant.get());
+        } else
+            System.out.println("NULL");
+    }
+
+    public static void updateCompteEtat() {
+        System.out.println("Entrer numero de compte");
+        String numero = scanner.next();
+        Compte.statut statut;
+        while (true) {
+            System.out.println("entrer une choix");
+            System.out.println("1.Actif");
+            System.out.println("2.Bloqué");
+            System.out.println("3.Suspendu");
+            System.out.println("4.Frauduleux");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    statut = Compte.statut.Actif;
+                    break;
+                case "2":
+                    statut = Compte.statut.Bloqué;
+                    break;
+                case "3":
+                    statut = Compte.statut.Suspendu;
+                    break;
+                case "4":
+                    statut = Compte.statut.Frauduleux;
+                    break;
+                default:
+                    System.out.println("Invalid Choix");
+                    continue;
+            }
+            break;
+        }
+        Integer res = compteCourantDao.updateCompteEtat(statut, numero);
+        if (res != 0) {
+            System.out.println("Bien Mis a jouré");
+        } else {
+            System.out.println("NULL");
+        }
+    }
+
+    public static void afficheComptesParStatut() {
+        Compte.statut statut;
+        while (true) {
+            System.out.println("entrer une choix");
+            System.out.println("1.Actif");
+            System.out.println("2.Bloqué");
+            System.out.println("3.Suspendu");
+            System.out.println("4.Frauduleux");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    statut = Compte.statut.Actif;
+                    break;
+                case "2":
+                    statut = Compte.statut.Bloqué;
+                    break;
+                case "3":
+                    statut = Compte.statut.Suspendu;
+                    break;
+                case "4":
+                    statut = Compte.statut.Frauduleux;
+                    break;
+                default:
+                    System.out.println("Invalid Choix");
+                    continue;
+            }
+            break;
+        }
+        Optional<ArrayList<CompteCourant>> optionalCompteCourant = compteCourantDao.afficherComptes();
+        if (optionalCompteCourant.isPresent()) {
+            ArrayList<CompteCourant> compteCourants = optionalCompteCourant.get();
+            List<CompteCourant> filteredCompteCourants = compteCourants.stream()
+                    .filter(compteCourant -> statut.equals(compteCourant.getEtat()))
+                    .collect(Collectors.toList());
+            if (!filteredCompteCourants.isEmpty()) {
+                System.out.println(filteredCompteCourants);
+            } else {
+                System.out.println("il n'y a pas CompteCourant avec staut "+ statut);
+            }
+        } else {
+            System.out.println("NULL");
+        }
+    }
+
+    public static void afficheComptesParDate() {
+        System.out.println("Entrer la date");
+        String date = scanner.next();
+        Optional<ArrayList<CompteCourant>> optionalCompteCourant = compteCourantDao.afficherComptes();
+        if (optionalCompteCourant.isPresent()) {
+            ArrayList<CompteCourant> compteCourants = optionalCompteCourant.get();
+            List<CompteCourant> filteredCompteCourants = compteCourants.stream()
+                    .filter(compteCourant -> LocalDate.parse(date).equals(compteCourant.getDateCreation()))
+                    .collect(Collectors.toList());
+            if (!filteredCompteCourants.isEmpty()) {
+                System.out.println(filteredCompteCourants);
+            } else {
+                System.out.println("il n'y a pas CompteCourant avec cette date" + date);
+            }
+        } else {
+            System.out.println("NULL");
         }
     }
 }

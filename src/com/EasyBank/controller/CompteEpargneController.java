@@ -6,13 +6,14 @@ import com.EasyBank.dao.EmployeDao;
 import com.EasyBank.daoImpl.ClientDaoImpl;
 import com.EasyBank.daoImpl.CompteEpargneDaoImpl;
 import com.EasyBank.daoImpl.EmployeDaoImpl;
-import com.EasyBank.entity.Client;
-import com.EasyBank.entity.CompteEpargne;
-import com.EasyBank.entity.Employe;
+import com.EasyBank.entity.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CompteEpargneController {
     static CompteEpargneDao compteEpargneDao = new CompteEpargneDaoImpl();
@@ -48,13 +49,13 @@ public class CompteEpargneController {
             System.out.println("NULL");
     }
 
-    public static void chercherCompte(){
+    public static void chercherCompte() {
         System.out.println("Entrer Code client");
         String code = scanner.next();
         Optional<CompteEpargne> compteEpargneOptional = compteEpargneDao.chercheCompte(code);
-        if (compteEpargneOptional.isPresent()){
-            System.out.println(compteEpargneOptional.get());;
-        }else
+        if (compteEpargneOptional.isPresent()) {
+            System.out.println(compteEpargneOptional.get());
+        } else
             System.out.println("NULL");
     }
 
@@ -71,10 +72,111 @@ public class CompteEpargneController {
             Integer res = compteEpargneDao.supprimerCompte(numero);
             if (res != 0) {
                 System.out.println("Compte supprimer");
-            }else
+            } else
                 System.out.println("null");
-        }else{
+        } else {
             System.out.println("client or employe pas trouvé ");
         }
     }
+
+    public static void updateCompteEtat() {
+        System.out.println("Entrer numero de compte");
+        String numero = scanner.next();
+        Compte.statut statut;
+        while (true) {
+            System.out.println("entrer une choix");
+            System.out.println("1.Actif");
+            System.out.println("2.Bloqué");
+            System.out.println("3.Suspendu");
+            System.out.println("4.Frauduleux");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    statut = Compte.statut.Actif;
+                    break;
+                case "2":
+                    statut = Compte.statut.Bloqué;
+                    break;
+                case "3":
+                    statut = Compte.statut.Suspendu;
+                    break;
+                case "4":
+                    statut = Compte.statut.Frauduleux;
+                    break;
+                default:
+                    System.out.println("Invalid Choix");
+                    continue;
+            }
+            break;
+        }
+        Integer res = compteEpargneDao.updateCompteEtat(statut, numero);
+        if (res != 0) {
+            System.out.println("Bien Mis a jouré");
+        } else {
+            System.out.println("NULL");
+        }
+    }
+    public static void afficheComptesParStatut() {
+        Compte.statut statut;
+        while (true) {
+            System.out.println("entrer une choix");
+            System.out.println("1.Actif");
+            System.out.println("2.Bloqué");
+            System.out.println("3.Suspendu");
+            System.out.println("4.Frauduleux");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    statut = Compte.statut.Actif;
+                    break;
+                case "2":
+                    statut = Compte.statut.Bloqué;
+                    break;
+                case "3":
+                    statut = Compte.statut.Suspendu;
+                    break;
+                case "4":
+                    statut = Compte.statut.Frauduleux;
+                    break;
+                default:
+                    System.out.println("Invalid Choix");
+                    continue;
+            }
+            break;
+        }
+        Optional<ArrayList<CompteEpargne>> optionalCompteEpargnes = compteEpargneDao.afficherComptes();
+        if (optionalCompteEpargnes.isPresent()) {
+            ArrayList<CompteEpargne> compteEpargnes = optionalCompteEpargnes.get();
+            List<CompteEpargne> filteredCompteEpargnes = compteEpargnes.stream()
+                    .filter(compteEpargne -> statut.equals(compteEpargne.getEtat()))
+                    .collect(Collectors.toList());
+            if (!filteredCompteEpargnes.isEmpty()) {
+                System.out.println(filteredCompteEpargnes);
+            } else {
+                System.out.println("il n'y a pas compteEpargne avec staut "+ statut);
+            }
+        } else {
+            System.out.println("NULL");
+        }
+    }
+
+    public static void afficheComptesParDate() {
+        System.out.println("Entrer la date");
+        String date = scanner.next();
+        Optional<ArrayList<CompteEpargne>> optionalCompteEpargne = compteEpargneDao.afficherComptes();
+        if (optionalCompteEpargne.isPresent()) {
+            ArrayList<CompteEpargne> compteEpargnes = optionalCompteEpargne.get();
+            List<CompteEpargne> filteredCompteEpargnes = compteEpargnes.stream()
+                    .filter(compteEpargne -> LocalDate.parse(date).equals(compteEpargne.getDateCreation()))
+                    .collect(Collectors.toList());
+            if (!filteredCompteEpargnes.isEmpty()) {
+                System.out.println(filteredCompteEpargnes);
+            } else {
+                System.out.println("il n'y a pas compteEpargne avec cette date" + date);
+            }
+        } else {
+            System.out.println("NULL");
+        }
+    }
+
 }

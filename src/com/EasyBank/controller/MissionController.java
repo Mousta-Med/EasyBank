@@ -4,6 +4,7 @@ import com.EasyBank.dao.MissionDao;
 import com.EasyBank.daoImpl.MissionDaoImpl;
 import com.EasyBank.entity.Mission;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -39,6 +40,13 @@ public class MissionController {
         }else {
             System.out.println("NULL");
         }
-
+    }
+    public static void afficherMissions(){
+        Optional<ArrayList<Mission>> optionalMission = missionDao.afficherMissions();
+        if (optionalMission.isPresent()){
+            System.out.println(optionalMission.get());
+        }else {
+            System.out.println("NULL");
+        }
     }
 }

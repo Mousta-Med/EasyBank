@@ -102,3 +102,13 @@ CREATE TABLE Mission
     nom         varchar(255),
     description varchar(255)
 );
+Drop table if exists affectation;
+CREATE TABLE affectation
+(
+    dateAffectation    timestamp,
+    dateFinAffectation timestamp,
+    employe varchar(255) not null ,
+    mission varchar(255) not null ,
+    FOREIGN KEY (employe) REFERENCES employe (matricule) ON DELETE CASCADE,
+    FOREIGN KEY (mission) REFERENCES Mission (code) ON DELETE CASCADE
+);

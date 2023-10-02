@@ -5,9 +5,11 @@ import com.EasyBank.dao.CompteCourantDao;
 import com.EasyBank.dao.EmployeDao;
 import com.EasyBank.entity.Compte;
 import com.EasyBank.entity.CompteCourant;
+import com.EasyBank.entity.CompteEpargne;
 import com.EasyBank.util.DbConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class CompteCourantDaoImpl implements CompteCourantDao {
@@ -34,6 +36,23 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Integer updateCompteEtat(Compte.statut statut, String numero) {
+        String query = "UPDATE compteCourant SET etat = ? WHERE numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setObject(1, statut, Types.OTHER);
+            preparedStatement.setString(2, numero);
+            Integer result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return result;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -94,5 +113,29 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Optional<ArrayList<CompteCourant>> afficherComptes() {
+        String query = "SELECT * FROM compteCourant";
+        ArrayList<CompteCourant> compteCourants = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet result = preparedStatement.executeQuery();
+            while (result.next()) {
+                compteCourant.setSold(result.getDouble("sold"));
+                compteCourant.setEmployé(employeDao.chercherEmploye(result.getString( "employe")).get());
+                compteCourant.setDecouvert(result.getDouble("decouvert"));
+                compteCourant.setClient(clientDao.chercherClient(result.getString("client")).get());
+                compteCourant.setEtat(Compte.statut.valueOf(result.getString("etat")));
+                compteCourant.setNemuro(result.getString("numero"));
+                compteCourant.setDateCreation(result.getDate("datecreation").toLocalDate());
+                compteCourants.add(compteCourant);
+            }
+            return Optional.of(compteCourants);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 }

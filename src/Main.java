@@ -105,6 +105,24 @@ public class Main {
                 case "22":
                     clientController.chercherClientParAttribute();
                     break;
+                case "23":
+                    CompteCourantController.updateCompteEtat();
+                    break;
+                case "24":
+                    CompteCourantController.afficheComptesParStatut();
+                    break;
+                case "25":
+                    CompteCourantController.afficheComptesParDate();
+                    break;
+                case "26":
+                    MissionController.afficherMissions();
+                    break;
+                case "27":
+                    AffectationController.ajouterAffectation();
+                    break;
+                case "28":
+                    AffectationController.supprimerAffectation();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);
