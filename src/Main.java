@@ -99,6 +99,9 @@ public class Main {
                 case "20":
                     employeController.recherchEmployeParAttribut();
                     break;
+                case "21":
+                    clientController.afficherClients();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);

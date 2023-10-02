@@ -8,11 +8,13 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
     Connection connection = DbConnection.createConnection();
     Client client = new Client();
+
     @Override
     public Optional<Client> ajouterClient(Client client) {
         String query = "INSERT INTO personne(nom, prenome, dateNaissance, telephone) VALUES (?,?,?,?) RETURNING id";
@@ -84,6 +86,29 @@ public class ClientDaoImpl implements ClientDao {
                 client.setAdresse(result.getString("adresse"));
                 return Optional.of(client);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArrayList<Client>> afficherClients() {
+        String query = "SELECT * FROM personne INNER JOIN client ON personne.id = client.personne";
+        ArrayList<Client> clients = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet result = preparedStatement.executeQuery();
+            while (result.next()) {
+                client.setCode(result.getString("code"));
+                client.setNom(result.getString("nom"));
+                client.setPrenom(result.getString("prenome"));
+                client.setDateNaissance(result.getDate("datenaissance").toLocalDate());
+                client.setTelephone(result.getString("telephone"));
+                client.setAdresse(result.getString("adresse"));
+                clients.add(client);
+            }
+            return Optional.of(clients);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -127,25 +127,22 @@ public class EmployeDaoImpl implements EmployeDao {
 
     @Override
     public Optional<ArrayList<Employe>> afficherEmployes() {
-        String query = "SELECT * FROM employe";
+        String query = "SELECT * FROM personne INNER JOIN employe ON personne.id = employe.personneId";
         ArrayList<Employe> employes = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet result = preparedStatement.executeQuery();
-            String stmt = "SELECT * FROM personne";
-            PreparedStatement statment = connection.prepareStatement(stmt);
-            ResultSet resultSet = statment.executeQuery();
-            while (resultSet.next() && result.next()) {
+            while (result.next()) {
                 employe.setMatricul(result.getString("matricule"));
-                employe.setNom(resultSet.getString("nom"));
-                employe.setPrenom(resultSet.getString("prenome"));
-                employe.setDateNaissance(resultSet.getDate("datenaissance").toLocalDate());
-                employe.setTelephone(resultSet.getString("telephone"));
+                employe.setNom(result.getString("nom"));
+                employe.setPrenom(result.getString("prenome"));
+                employe.setDateNaissance(result.getDate("datenaissance").toLocalDate());
+                employe.setTelephone(result.getString("telephone"));
                 employe.setEmail(result.getString("email"));
                 employe.setDateRecrutement(result.getDate("daterecrutement").toLocalDate());
                 employes.add(employe);
-                return Optional.of(employes);
             }
+                return Optional.of(employes);
         } catch (Exception e) {
             e.printStackTrace();
         }
