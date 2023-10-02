@@ -11,6 +11,7 @@ public interface CompteCourantDao {
     Optional<CompteCourant> creeCompte(CompteCourant compteCourant);
     Integer updateCompteEtat(Compte.statut statut, String numero);
     Optional<CompteCourant> chercheCompte(String code);
+    Optional<CompteCourant> miseajourCompte(CompteCourant compteCourant);
     Optional<CompteCourant> chercheCompteParNum(String code);
     Integer supprimerCompte(String numero);
     Optional<ArrayList<CompteCourant>> afficherComptes();

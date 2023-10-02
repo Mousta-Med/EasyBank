@@ -126,6 +126,36 @@ public class EmployeDaoImpl implements EmployeDao {
     }
 
     @Override
+    public Optional<Employe> miseajourEmploye(Employe employe) {
+        String updateEmployeQuery = "UPDATE employe SET dateRecrutement = ?, email = ? WHERE matricule = ? RETURNING personneId";
+        try {
+            PreparedStatement employeStatement = connection.prepareStatement(updateEmployeQuery);
+            employeStatement.setDate(1, Date.valueOf(employe.getDateRecrutement()));
+            employeStatement.setString(2, employe.getEmail());
+            employeStatement.setString(3, employe.getMatricul());
+            ResultSet resultSet = employeStatement.executeQuery();
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("personneId");
+            }
+            String updatePersonneQuery = "UPDATE personne SET nom = ?, prenome = ?, dateNaissance = ?, telephone = ? WHERE id = ?";
+            PreparedStatement personneStatement = connection.prepareStatement(updatePersonneQuery);
+            personneStatement.setString(1, employe.getNom());
+            personneStatement.setString(2, employe.getPrenom());
+            personneStatement.setDate(3, Date.valueOf(employe.getDateNaissance()));
+            personneStatement.setString(4, employe.getTelephone());
+            personneStatement.setInt(5, id);
+            Integer res = personneStatement.executeUpdate();
+            if (res != 0) {
+                return Optional.of(employe);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<ArrayList<Employe>> afficherEmployes() {
         String query = "SELECT * FROM personne INNER JOIN employe ON personne.id = employe.personneId";
         ArrayList<Employe> employes = new ArrayList<>();
@@ -142,7 +172,7 @@ public class EmployeDaoImpl implements EmployeDao {
                 employe.setDateRecrutement(result.getDate("daterecrutement").toLocalDate());
                 employes.add(employe);
             }
-                return Optional.of(employes);
+            return Optional.of(employes);
         } catch (Exception e) {
             e.printStackTrace();
         }

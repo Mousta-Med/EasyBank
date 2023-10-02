@@ -80,6 +80,24 @@ public class CompteEpargneDaoImpl implements CompteEpargneDao {
     }
 
     @Override
+    public Optional<CompteEpargne> miseajourCompte(CompteEpargne compteEpargne) {
+        String query = "UPDATE compteCourant SET sold = ?, tauxInteret = ? WHERE numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDouble(1, compteEpargne.getSold());
+            preparedStatement.setDouble(2, compteEpargne.getTauxInteret());
+            preparedStatement.setString(3, compteEpargne.getNemuro());
+            Integer result = preparedStatement.executeUpdate();
+            if (result != 0) {
+                return Optional.of(compteEpargne);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<CompteEpargne> chercheCompteParNum(String code) {
         String query = "SELECT * FROM compteEpargne WHERE numero = ?";
         try {

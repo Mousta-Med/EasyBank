@@ -182,4 +182,23 @@ public class CompteCourantController {
             System.out.println("NULL");
         }
     }
+    public static void miseajourCompte(){
+        System.out.println("Entrer numero de Compte");
+        String numero = scanner.next();
+        Optional<CompteCourant> optionalCompteCourant = compteCourantDao.chercheCompteParNum(numero);
+        if (optionalCompteCourant.isPresent()){
+        System.out.println("Entrer Solde de compte");
+        Double solde = scanner.nextDouble();
+        System.out.println("Entrer decouvert de compte");
+        Double decouvert = scanner.nextDouble();
+        compteCourant.setDecouvert(decouvert);
+        compteCourant.setNemuro(numero);
+        compteCourant.setSold(solde);
+        Optional<CompteCourant> compteCourantOptional = compteCourantDao.miseajourCompte(compteCourant);
+        if (compteCourantOptional.isPresent()) {
+            System.out.println("compteCourant a misea jouré ");
+        } else
+            System.out.println("NULL");
+        }
+    }
 }

@@ -10,5 +10,6 @@ public interface EmployeDao {
     Integer supprimerEmploye(String matricule);
     Optional<Employe> chercherEmploye(String matricule);
     Optional<Employe> chercherEmployeParAttribut(String string);
+    Optional<Employe> miseajourEmploye(Employe e);
     Optional<ArrayList<Employe>> afficherEmployes();
 }

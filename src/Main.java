@@ -123,6 +123,15 @@ public class Main {
                 case "28":
                     AffectationController.supprimerAffectation();
                     break;
+                case "29":
+                    employeController.miseajourEmploye();
+                    break;
+                case "30":
+                    clientController.miseajourClient();
+                    break;
+                case "31":
+                    CompteCourantController.miseajourCompte();
+                    break;
                 case "0":
                     System.out.println("Merci...");
                     System.exit(0);

@@ -63,6 +63,35 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public Optional<Client> miseajourClient(Client client) {
+        String query = "UPDATE client SET adresse = ? WHERE code = ? RETURNING personne";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, client.getAdresse());
+            preparedStatement.setString(2, client.getCode());
+            ResultSet result = preparedStatement.executeQuery();
+            Integer personneId = 0;
+            if (result.next()) {
+                personneId = result.getInt(1);
+            }
+            String stmt = "UPDATE personne SET nom = ?, prenome = ?, dateNaissance = ?, telephone = ? WHERE id = ?";
+            PreparedStatement statment = connection.prepareStatement(stmt);
+            statment.setString(1, client.getNom());
+            statment.setString(2, client.getPrenom());
+            statment.setDate(3, Date.valueOf(client.getDateNaissance()));
+            statment.setString(4, client.getTelephone());
+            statment.setInt(5, personneId);
+            Integer integer = statment.executeUpdate();
+            if (integer != 0) {
+                return Optional.of(client);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Client> chercherClient(String code) {
         String query = "SELECT * FROM client WHERE code = ?";
         try {
