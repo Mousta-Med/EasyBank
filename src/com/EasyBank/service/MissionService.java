@@ -1,4 +1,4 @@
-package com.EasyBank.controller;
+package com.EasyBank.service;
 
 import com.EasyBank.dao.MissionDao;
 import com.EasyBank.daoImpl.MissionDaoImpl;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class MissionController {
+public class MissionService {
     static Mission mission = new Mission();
     static MissionDao missionDao = new MissionDaoImpl();
     static Scanner scanner = new Scanner(System.in);

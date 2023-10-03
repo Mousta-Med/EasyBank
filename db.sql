@@ -67,7 +67,7 @@ CREATE TABLE operation
     dateOperation timestamp    not null,
     montant       real         not null,
     type          operationType,
-    compteCourant varchar(255) not null,
+    compteCourant varchar(255),
     compteEpargne varchar(255),
     employe       varchar(255) not null,
     FOREIGN KEY (compteCourant) REFERENCES compteCourant (numero) ON DELETE CASCADE,
@@ -77,18 +77,31 @@ CREATE TABLE operation
 Create or replace function operation()
     returns trigger as
 $$
-begin
-    if new.type = 'Retrait' then
-        update compteCourant
-        set sold = sold - new.montant
-        where numero = new.compteCourant;
-    else
-        update compteCourant
-        set sold = sold + new.montant
-        where numero = new.compteCourant;
-    end if;
-    return new;
-end;
+BEGIN
+    IF NEW.compteCourant IS NOT NULL THEN
+        IF NEW.type = 'Retrait' THEN
+            UPDATE compteCourant
+            SET sold = sold - NEW.montant
+            WHERE numero = NEW.compteCourant;
+        ELSE
+            UPDATE compteCourant
+            SET sold = sold + NEW.montant
+            WHERE numero = NEW.compteCourant;
+        END IF;
+    ELSE
+        IF NEW.type = 'Retrait' THEN
+            UPDATE compteEpargne
+            SET sold = sold - NEW.montant
+            WHERE numero = NEW.compteEpargne;
+        ELSE
+            UPDATE compteEpargne
+            SET sold = sold + NEW.montant
+            WHERE numero = NEW.compteEpargne;
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
 $$ language plpgsql;
 create trigger update_compteCourant_sold
     after insert

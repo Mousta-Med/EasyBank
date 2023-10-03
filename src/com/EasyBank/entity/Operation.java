@@ -9,6 +9,7 @@ public class Operation {
     private Double montant;
     private Employe employé;
     private CompteCourant compteCourant;
+    private CompteEpargne compteEpargne;
     private Type type;
 
     public enum Type {
@@ -19,12 +20,13 @@ public class Operation {
     public Operation() {
     }
 
-    public Operation(Integer numero, LocalDate dateCreation, Double montant, Employe employé, CompteCourant compteCourant, Type type) {
+    public Operation(Integer numero, LocalDate dateCreation, Double montant, Employe employé, CompteCourant compteCourant, CompteEpargne compteEpargne, Type type) {
         this.numero = numero;
         this.dateCreation = dateCreation;
         this.montant = montant;
         this.employé = employé;
         this.compteCourant = compteCourant;
+        this.compteEpargne = compteEpargne;
         this.type = type;
     }
 
@@ -60,12 +62,20 @@ public class Operation {
         this.employé = employé;
     }
 
-    public CompteCourant getCompte() {
+    public CompteCourant getCompteCourant() {
         return compteCourant;
     }
 
-    public void setCompte(CompteCourant compteCourant) {
+    public void setCompteCourant(CompteCourant compteCourant) {
         this.compteCourant = compteCourant;
+    }
+
+    public CompteEpargne getCompteEpargne() {
+        return compteEpargne;
+    }
+
+    public void setCompteEpargne(CompteEpargne compteEpargne) {
+        this.compteEpargne = compteEpargne;
     }
 
     public Type getType() {

@@ -17,16 +17,26 @@ public class OperationDaoImpl implements OperationDao {
     CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
     EmployeDao employeDao = new EmployeDaoImpl();
     Connection connection = DbConnection.createConnection();
+
     @Override
     public Optional<Operation> ajouterOperation(Operation operation) {
-        String query = "INSERT INTO Operation(numero, dateOperation, montant, type, compteCourant, employe) VALUES (?,?,?,?,?,?)";
+        String query;
+        if (operation.getCompteCourant() != null) {
+            query = "INSERT INTO Operation(numero, dateOperation, montant, type, compteCourant, employe) VALUES (?,?,?,?,?,?)";
+        } else {
+            query = "INSERT INTO Operation(numero, dateOperation, montant, type, compteEpargne, employe) VALUES (?,?,?,?,?,?)";
+        }
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, operation.getNumero());
             preparedStatement.setDate(2, Date.valueOf(operation.getDateCreation()));
             preparedStatement.setDouble(3, operation.getMontant());
             preparedStatement.setObject(4, operation.getType(), Types.OTHER);
-            preparedStatement.setString(5, operation.getCompte().getNemuro());
+            if (operation.getCompteCourant() != null) {
+                preparedStatement.setString(5, operation.getCompteCourant().getNemuro());
+            } else {
+                preparedStatement.setString(5, operation.getCompteEpargne().getNemuro());
+            }
             preparedStatement.setString(6, operation.getEmployé().getMatricul());
             Integer result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -48,7 +58,7 @@ public class OperationDaoImpl implements OperationDao {
             if (result != 0) {
                 return result;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -67,10 +77,10 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setType(Operation.Type.valueOf(result.getObject("type").toString()));
                 operation.setDateCreation(result.getDate("dateOperation").toLocalDate());
                 operation.setEmployé(employeDao.chercherEmploye(result.getString("employe")).get());
-                operation.setCompte(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
+                operation.setCompteCourant(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
                 return Optional.of(operation);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
@@ -89,11 +99,11 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setType(Operation.Type.valueOf(result.getObject("type").toString()));
                 operation.setDateCreation(result.getDate("dateOperation").toLocalDate());
                 operation.setEmployé(employeDao.chercherEmploye(result.getString("employe")).get());
-                operation.setCompte(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
+                operation.setCompteCourant(compteCourantDao.chercheCompteParNum(result.getString("compteCourant")).get());
                 operations.add(operation);
             }
             return Optional.of(operations);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();

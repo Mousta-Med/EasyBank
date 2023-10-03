@@ -79,6 +79,29 @@ public class CompteCourantDaoImpl implements CompteCourantDao {
     }
 
     @Override
+    public Optional<CompteCourant> chercherCompteParOperation(Integer operation) {
+        String query = "SELECT * FROM compteCourant JOIN operation ON compteCourant.numero = operation.compteCourant WHERE operation.numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, operation);
+            ResultSet result = preparedStatement.executeQuery();
+            if (result.next()) {
+                compteCourant.setSold(result.getDouble("sold"));
+                compteCourant.setEmployé(employeDao.chercherEmploye(result.getString( "employe")).get());
+                compteCourant.setDecouvert(result.getDouble("decouvert"));
+                compteCourant.setClient(clientDao.chercherClient(result.getString("client")).get());
+                compteCourant.setEtat(Compte.statut.valueOf(result.getString("etat")));
+                compteCourant.setNemuro(result.getString("numero"));
+                compteCourant.setDateCreation(result.getDate("datecreation").toLocalDate());
+                return Optional.of(compteCourant);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<CompteCourant> miseajourCompte(CompteCourant compteCourant) {
         String query = "UPDATE compteCourant SET sold = ?, decouvert = ? WHERE numero = ?";
         try {

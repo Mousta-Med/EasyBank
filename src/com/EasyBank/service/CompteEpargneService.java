@@ -1,4 +1,4 @@
-package com.EasyBank.controller;
+package com.EasyBank.service;
 
 import com.EasyBank.dao.ClientDao;
 import com.EasyBank.dao.CompteEpargneDao;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class CompteEpargneController {
+public class CompteEpargneService {
     static CompteEpargneDao compteEpargneDao = new CompteEpargneDaoImpl();
     static ClientDao clientDao = new ClientDaoImpl();
     static EmployeDao employeDao = new EmployeDaoImpl();

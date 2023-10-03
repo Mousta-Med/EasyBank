@@ -80,6 +80,29 @@ public class CompteEpargneDaoImpl implements CompteEpargneDao {
     }
 
     @Override
+    public Optional<CompteEpargne> chercherCompteParOperation(Integer operation) {
+        String query = "SELECT * FROM compteEpargne JOIN operation ON compteEpargne.numero = operation.compteEpargne WHERE operation.numero = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, operation);
+            ResultSet result = preparedStatement.executeQuery();
+            if (result.next()) {
+                compteEpargne.setSold(result.getDouble("sold"));
+                compteEpargne.setEmployé(employeDao.chercherEmploye(result.getString( "employe")).get());
+                compteEpargne.setTauxInteret(result.getDouble("tauxInteret"));
+                compteEpargne.setClient(clientDao.chercherClient(result.getString("client")).get());
+                compteEpargne.setEtat(Compte.statut.valueOf(result.getString("etat")));
+                compteEpargne.setNemuro(result.getString("numero"));
+                compteEpargne.setDateCreation(result.getDate("datecreation").toLocalDate());
+                return Optional.of(compteEpargne);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<CompteEpargne> miseajourCompte(CompteEpargne compteEpargne) {
         String query = "UPDATE compteCourant SET sold = ?, tauxInteret = ? WHERE numero = ?";
         try {

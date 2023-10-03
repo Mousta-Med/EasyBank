@@ -11,6 +11,7 @@ public interface CompteEpargneDao {
     Optional<CompteEpargne> creeCompte(CompteEpargne compteEpargne);
     Optional<CompteEpargne> chercheCompte(String code);
     Integer updateCompteEtat(Compte.statut statut, String numero);
+    Optional<CompteEpargne> chercherCompteParOperation(Integer operation);
     Optional<CompteEpargne> miseajourCompte(CompteEpargne compteEpargne);
     Optional<CompteEpargne> chercheCompteParNum(String code);
     Integer supprimerCompte(String numero);

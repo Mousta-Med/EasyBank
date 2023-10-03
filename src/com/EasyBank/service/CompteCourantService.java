@@ -1,4 +1,4 @@
-package com.EasyBank.controller;
+package com.EasyBank.service;
 
 import com.EasyBank.dao.ClientDao;
 import com.EasyBank.dao.CompteCourantDao;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CompteCourantController {
+public class CompteCourantService {
     static CompteCourantDao compteCourantDao = new CompteCourantDaoImpl();
     static ClientDao clientDao = new ClientDaoImpl();
     static EmployeDao employeDao = new EmployeDaoImpl();
@@ -157,7 +157,7 @@ public class CompteCourantController {
             if (!filteredCompteCourants.isEmpty()) {
                 System.out.println(filteredCompteCourants);
             } else {
-                System.out.println("il n'y a pas CompteCourant avec staut "+ statut);
+                System.out.println("il n'y a pas CompteCourant avec staut " + statut);
             }
         } else {
             System.out.println("NULL");
@@ -182,23 +182,34 @@ public class CompteCourantController {
             System.out.println("NULL");
         }
     }
-    public static void miseajourCompte(){
+
+    public static void miseajourCompte() {
         System.out.println("Entrer numero de Compte");
         String numero = scanner.next();
         Optional<CompteCourant> optionalCompteCourant = compteCourantDao.chercheCompteParNum(numero);
-        if (optionalCompteCourant.isPresent()){
-        System.out.println("Entrer Solde de compte");
-        Double solde = scanner.nextDouble();
-        System.out.println("Entrer decouvert de compte");
-        Double decouvert = scanner.nextDouble();
-        compteCourant.setDecouvert(decouvert);
-        compteCourant.setNemuro(numero);
-        compteCourant.setSold(solde);
-        Optional<CompteCourant> compteCourantOptional = compteCourantDao.miseajourCompte(compteCourant);
+        if (optionalCompteCourant.isPresent()) {
+            System.out.println("Entrer Solde de compte");
+            Double solde = scanner.nextDouble();
+            System.out.println("Entrer decouvert de compte");
+            Double decouvert = scanner.nextDouble();
+            compteCourant.setDecouvert(decouvert);
+            compteCourant.setNemuro(numero);
+            compteCourant.setSold(solde);
+            Optional<CompteCourant> compteCourantOptional = compteCourantDao.miseajourCompte(compteCourant);
+            if (compteCourantOptional.isPresent()) {
+                System.out.println("compteCourant a misea jouré ");
+            } else
+                System.out.println("NULL");
+        }
+    }
+
+    public static void afficherCompteParOperation() {
+        System.out.println("Entrer numero de Operation");
+        String numero = scanner.next();
+        Optional<CompteCourant> compteCourantOptional = compteCourantDao.chercherCompteParOperation(Integer.valueOf(numero));
         if (compteCourantOptional.isPresent()) {
-            System.out.println("compteCourant a misea jouré ");
+            System.out.println(compteCourantOptional.get());
         } else
             System.out.println("NULL");
-        }
     }
 }

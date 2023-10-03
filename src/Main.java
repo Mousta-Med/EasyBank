@@ -1,136 +1,157 @@
-import com.EasyBank.controller.*;
+import com.EasyBank.service.*;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        EmployeController employeController = new EmployeController();
-        ClientController clientController = new ClientController();
+        EmployeService employeService = new EmployeService();
+        ClientService clientService = new ClientService();
 
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println(
                     """
-                            ++++++++++++++++++++   EasyBank   +++++++++++++++++++++
-                            + 1.Ajouter Un Employe                                +
-                            + 2.Supprimer Un Employe                              +
-                            + 3.Afficher Employe par matricule                    +
-                            + 4.Ajouter Un Client                                 +
-                            + 5.Supprimer Un client                               +
-                            + 6.Aficher Un Client par code                        +
-                            + 7.Ajouter Un CompteCourant                          +
-                            + 8.Supprimer Un compteCourant                        +
-                            + 9.Afficher Un compteCourant par client             +
-                            + 10.Ajouter Un compteEpargne                          +
-                            + 11.Supprimer Un compteEpargne                        +
-                            + 12.Afficher Un compteEpargne par client
-                            + 13.ajouter operation                                +
-                            + 14.supprimer operation                              +
-                            + 15.chercher operation                               +
-                            + 14.Exporter Statistique                             +
-                            + 13.ajouter operation                +
-                            + 14.supprimer operation                    +
-                            + 15.chercher operation                              +
-                            + 16.Ajouter Mission                             +
-                            + 17.supprimer Mission                                +
-                            + 18.Afficher tout operations                         +
-                            + 0.Sortir                                            +
-                            +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                            Entrer Votre Choix:\s""");
+                    ++++++++++++++++++++   EasyBank   +++++++++++++++++++++
+                    + 1.Ajouter Un Employe                                +
+                    + 2.Supprimer Un Employe                              +
+                    + 3.Afficher Employe par matricule                    +
+                    + 4.Ajouter Un Client                                 +
+                    + 5.Supprimer Un client                               +
+                    + 6.Aficher Un Client par code                        +
+                    + 7.Ajouter Un CompteCourant                          +
+                    + 8.Supprimer Un compteCourant                        +
+                    + 9.Afficher Un compteCourant par client              +
+                    + 10.Ajouter Un compteEpargne                         +
+                    + 11.Supprimer Un compteEpargne                       +
+                    + 12.Afficher Un compteEpargne par client             +
+                    + 13.Ajouter une opération                            +
+                    + 14.Supprimer une opération                          +
+                    + 15.Chercher une opération                           +
+                    + 16.Exporter Statistiques                            +
+                    + 17.Ajouter Mission                                  +
+                    + 18.Supprimer Mission                                +
+                    + 19.Afficher toutes les opérations                   +
+                    + 20.Afficher tous les employés                       +
+                    + 21.Rechercher employé par attribut                  +
+                    + 22.Afficher tous les clients                        +
+                    + 23.Chercher client par attribut                     +
+                    + 24.Mise à jour de l'état d'un compte                +
+                    + 25.Afficher les comptes par statut                  +
+                    + 26.Afficher les comptes par date                    +
+                    + 27.Afficher toutes les missions                     +
+                    + 28.Ajouter une affectation                          +
+                    + 29.Supprimer une affectation                        +
+                    + 30.Mise à jour de l'employé                         +
+                    + 31.Mise à jour du client                            +
+                    + 32.Mise à jour du compte courant                    +
+                    + 33.Afficher le compte par opération                 +
+                    + 34.Afficher les affectations employé                +
+                    + 0.Sortir                                            +
+                    +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    Entrer Votre Choix:\s""");
             String input = scanner.next();
             switch (input) {
                 case "1":
-                    employeController.ajouterEmploye();
+                    employeService.ajouterEmploye();
                     break;
                 case "2":
-                    employeController.deleteEmploye();
+                    employeService.deleteEmploye();
                     break;
                 case "3":
-                    employeController.recherchEmploye();
+                    employeService.recherchEmploye();
                     break;
                 case "4":
-                    clientController.ajouterClient();
+                    clientService.ajouterClient();
                     break;
                 case "5":
-                    clientController.supprimerClient();
+                    clientService.supprimerClient();
                     break;
                 case "6":
-                    clientController.chercherClient();
+                    clientService.chercherClient();
                     break;
                 case "7":
-                    CompteCourantController.ajouterCompte();
+                    CompteCourantService.ajouterCompte();
                     break;
                 case "8":
-                    CompteCourantController.supprimerCompte();
+                    CompteCourantService.supprimerCompte();
                     break;
                 case "9":
-                    CompteCourantController.chercherCompte();
+                    CompteCourantService.chercherCompte();
                     break;
                 case "10":
-                    CompteEpargneController.ajouterCompte();
+                    CompteEpargneService.ajouterCompte();
                     break;
                 case "11":
-                    CompteEpargneController.supprimerCompte();
+                    CompteEpargneService.supprimerCompte();
                     break;
                 case "12":
-                    CompteEpargneController.chercherCompte();
+                    CompteEpargneService.chercherCompte();
                     break;
                 case "13":
-                    OperationController.ajouterOperation();
+                    OperationService.ajouterOperation();
                     break;
                 case "14":
-                    OperationController.supprimerOperation();
+                    OperationService.supprimerOperation();
                     break;
                 case "15":
-                    OperationController.chercherOperation();
+                    OperationService.chercherOperation();
                     break;
                 case "16":
-                    MissionController.ajouterMission();
+                    MissionService.ajouterMission();
                     break;
                 case "17":
-                    MissionController.supprimerMission();
+                    MissionService.supprimerMission();
                     break;
                 case "18":
-                    OperationController.afficherOperations();
+                    OperationService.afficherOperations();
                     break;
                 case "19":
-                    employeController.afficherEmlpoyes();
+                    employeService.afficherEmlpoyes();
                     break;
                 case "20":
-                    employeController.recherchEmployeParAttribut();
+                    employeService.recherchEmployeParAttribut();
                     break;
                 case "21":
-                    clientController.afficherClients();
+                    clientService.afficherClients();
                     break;
                 case "22":
-                    clientController.chercherClientParAttribute();
+                    clientService.chercherClientParAttribute();
                     break;
                 case "23":
-                    CompteCourantController.updateCompteEtat();
+                    CompteCourantService.updateCompteEtat();
                     break;
                 case "24":
-                    CompteCourantController.afficheComptesParStatut();
+                    CompteCourantService.afficheComptesParStatut();
                     break;
                 case "25":
-                    CompteCourantController.afficheComptesParDate();
+                    CompteCourantService.afficheComptesParDate();
                     break;
                 case "26":
-                    MissionController.afficherMissions();
+                    MissionService.afficherMissions();
                     break;
                 case "27":
-                    AffectationController.ajouterAffectation();
+                    AffectationService.ajouterAffectation();
                     break;
                 case "28":
-                    AffectationController.supprimerAffectation();
+                    AffectationService.supprimerAffectation();
                     break;
                 case "29":
-                    employeController.miseajourEmploye();
+                    employeService.miseajourEmploye();
                     break;
                 case "30":
-                    clientController.miseajourClient();
+                    clientService.miseajourClient();
                     break;
                 case "31":
-                    CompteCourantController.miseajourCompte();
+                    CompteCourantService.miseajourCompte();
+                    break;
+                case "32":
+                    CompteCourantService.afficherCompteParOperation();
+                    break;
+                case "33":
+                    AffectationService.afficherAffectationEmploye();
+                    break;
+                case "34":
+                    AffectationService.afficherAffectation();
                     break;
                 case "0":
                     System.out.println("Merci...");

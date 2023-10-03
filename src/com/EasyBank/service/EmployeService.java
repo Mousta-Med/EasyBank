@@ -1,4 +1,4 @@
-package com.EasyBank.controller;
+package com.EasyBank.service;
 
 import com.EasyBank.dao.EmployeDao;
 import com.EasyBank.daoImpl.EmployeDaoImpl;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class EmployeController {
+public class EmployeService {
     EmployeDao employeDao = new EmployeDaoImpl();
     Employe employe = new Employe();
     Scanner scanner = new Scanner(System.in);

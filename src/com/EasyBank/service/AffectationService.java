@@ -1,4 +1,4 @@
-package com.EasyBank.controller;
+package com.EasyBank.service;
 
 import com.EasyBank.dao.AffectationDao;
 import com.EasyBank.dao.EmployeDao;
@@ -9,10 +9,11 @@ import com.EasyBank.daoImpl.MissionDaoImpl;
 import com.EasyBank.entity.Affectation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class AffectationController {
+public class AffectationService {
     static Scanner scanner = new Scanner(System.in);
     static Affectation affectation = new Affectation();
     static AffectationDao affectationDao = new AffectationDaoImpl();
@@ -47,6 +48,26 @@ public class AffectationController {
         Integer res = affectationDao.supprimerAffectation(matricule, code);
         if (res != 0){
             System.out.println("Bien supprimer");
+        }else {
+            System.out.println("NULL");
+        }
+    }
+
+    public static void afficherAffectationEmploye(){
+        System.out.println("Entrer Matricule de employe");
+        String matricule = scanner.next();
+        Optional<ArrayList<Affectation>> optionalAffectation = affectationDao.afficherAffectationParEmploye(matricule);
+        if (optionalAffectation.isPresent()){
+            System.out.println(optionalAffectation.get());
+        }else {
+            System.out.println("NULL");
+        }
+    }
+
+    public static void afficherAffectation(){
+        Optional<ArrayList<Affectation>> optionalAffectation = affectationDao.afficherAffectations();
+        if (optionalAffectation.isPresent()){
+            System.out.println((long) optionalAffectation.get().stream().count());
         }else {
             System.out.println("NULL");
         }
